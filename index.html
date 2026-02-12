@@ -1,0 +1,55 @@
+```html
+<!doctype html>
+<html>
+  <head>
+    <style>
+      .item {
+        padding: 10px;
+        background: orange;
+        margin: 5px;
+        width: 100px;
+        cursor: grab;
+      }
+
+      #cart {
+        width: 250px;
+        min-height: 150px;
+        border: 2px dashed black;
+        padding: 10px;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>Products</h3>
+
+    <div id="item1" class="item" draggable="true">Item 1</div>
+    <div id="item2" class="item" draggable="true">Item 2</div>
+    <div id="item3" class="item" draggable="true">Item 3</div>
+
+    <h3>Cart</h3>
+    <div id="cart">Drop items here</div>
+
+    <script>
+      const items = document.querySelectorAll(".item");
+      const cart = document.getElementById("cart");
+
+      items.forEach((item) => {
+        item.addEventListener("dragstart", (e) => {
+          e.dataTransfer.setData("text", e.target.id);
+        });
+      });
+
+      cart.addEventListener("dragover", (e) => {
+        e.preventDefault();
+      });
+
+      cart.addEventListener("drop", (e) => {
+        e.preventDefault();
+        const id = e.dataTransfer.getData("text");
+        cart.appendChild(document.getElementById(id));
+      });
+    </script>
+  </body>
+</html>
+```
